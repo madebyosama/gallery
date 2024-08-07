@@ -16,15 +16,16 @@ interface MediaItem {
 
 export default function Home() {
   const [media, setMedia] = useState<MediaItem[]>([]);
-
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
+    setLoading(true);
     async function fetchData() {
-      // Example fetch URL; replace with your actual endpoint
       const response = await fetch(
-        'https://opensheet.elk.sh/1TX-yGqpd254kAR63bI7cKbskSmnuJVcbGuHK0rFp52Q/1' // Replace with your API endpoint
+        'https://opensheet.elk.sh/1TX-yGqpd254kAR63bI7cKbskSmnuJVcbGuHK0rFp52Q/1'
       );
       const data: MediaItem[] = await response.json();
       setMedia(data);
+      setLoading(false);
     }
 
     fetchData();
@@ -41,7 +42,9 @@ export default function Home() {
 
   const columns = splitArrayIntoColumns(media, 3);
 
-  return (
+  return loading ? (
+    <div>loading...</div>
+  ) : (
     <div className={styles.row}>
       {columns.map((column, columnIndex) => (
         <div key={columnIndex} className={styles.column}>
@@ -51,8 +54,9 @@ export default function Home() {
                 <Image
                   src={item.link}
                   alt={item.description || item.title}
-                  width={600} // Adjust width and height as needed
-                  height={400} // Adjust width and height as needed
+                  width={0}
+                  height={0}
+                  sizes='100vw'
                   className={styles.media}
                 />
               ) : (
