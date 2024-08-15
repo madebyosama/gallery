@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import styles from './page.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 // Define the interface for the media item
 interface MediaItem {
@@ -29,7 +29,6 @@ export default function Home() {
       );
       const data: MediaItem[] = await response.json();
       setMedia(data.length ? data : media);
-
       setLoading(false);
     }
 
@@ -46,6 +45,16 @@ export default function Home() {
   };
 
   const columns = splitArrayIntoColumns(media, 3);
+
+  // Handle video play/pause
+  const handleVideoClick = (e: React.MouseEvent<HTMLVideoElement>) => {
+    const video = e.currentTarget;
+    if (video.paused) {
+      video.play();
+    } else {
+      video.pause();
+    }
+  };
 
   return loading ? (
     <div>loading...</div>
@@ -83,7 +92,7 @@ export default function Home() {
                 ) : (
                   <video
                     src={item.link}
-                    controls
+                    onClick={handleVideoClick}
                     className={`${styles.media} ${styles.video}`}
                   >
                     Your browser does not support the video tag.
