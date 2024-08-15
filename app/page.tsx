@@ -92,6 +92,7 @@ export default function Home() {
                 ) : (
                   <video
                     src={item.link}
+                    loop
                     onClick={handleVideoClick}
                     className={`${styles.media} ${styles.video}`}
                   >
