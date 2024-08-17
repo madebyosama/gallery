@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import styles from './page.module.css';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 // Define the interface for the media item
 interface MediaItem {
@@ -19,6 +19,7 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(true);
   const [category, setCategory] = useState<String>('posts');
   const [selectedCategory, setSelectedCategory] = useState<String>('');
+  const [fullscreen, setFullscreen] = useState<string | null>(null); // To track fullscreen state
 
   useEffect(() => {
     setLoading(true);
@@ -35,6 +36,21 @@ export default function Home() {
     fetchData();
   }, [category]);
 
+  // Listen for the Escape key to exit fullscreen
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setFullscreen(null); // Exit fullscreen on Escape key press
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   // Split the media array into three columns
   const splitArrayIntoColumns = (array: MediaItem[], numColumns: number) => {
     const columns: MediaItem[][] = Array.from({ length: numColumns }, () => []);
@@ -45,6 +61,16 @@ export default function Home() {
   };
 
   const columns = splitArrayIntoColumns(media, 3);
+
+  // Handle image click for fullscreen toggle
+  const handleImageClick = (item: MediaItem) => {
+    setFullscreen(fullscreen === item.link ? null : item.link);
+  };
+
+  // Handle video double click for fullscreen toggle
+  const handleVideoDoubleClick = (item: MediaItem) => {
+    setFullscreen(fullscreen === item.link ? null : item.link);
+  };
 
   // Handle video play/pause
   const handleVideoClick = (e: React.MouseEvent<HTMLVideoElement>) => {
@@ -57,7 +83,7 @@ export default function Home() {
   };
 
   return loading ? (
-    <div>loading...</div>
+    <div>Loading...</div>
   ) : (
     <div>
       <div>
@@ -79,7 +105,16 @@ export default function Home() {
         {columns.map((column, columnIndex) => (
           <div key={columnIndex} className={styles.column}>
             {column.map((item) => (
-              <div key={item.link} className={styles.mediaContainer}>
+              <div
+                key={item.link}
+                className={`${styles.mediaContainer} ${
+                  fullscreen === item.link ? styles.fullscreen : ''
+                }`}
+                onClick={() => item.type === 'image' && handleImageClick(item)}
+                onDoubleClick={() =>
+                  item.type === 'video' && handleVideoDoubleClick(item)
+                }
+              >
                 {item.type === 'image' ? (
                   <Image
                     src={item.link}

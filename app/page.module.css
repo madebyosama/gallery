@@ -12,6 +12,8 @@
   border-radius: 8px;
   overflow: hidden;
   background-color: #f0f0f0; /* Optional: background color */
+  position: relative; /* Needed for fullscreen positioning */
+  transition: all 0.3s ease-in-out;
 }
 
 .media {
@@ -23,4 +25,26 @@
 
 .video {
   height: auto; /* Ensure video height adjusts to container */
+}
+
+/* Fullscreen styles */
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.9); /* Dark background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fullscreen .media {
+  width: auto;
+  height: 100%;
+  object-fit: contain; /* Ensure media maintains aspect ratio in fullscreen */
 }
