@@ -48,3 +48,12 @@
   height: 100%;
   object-fit: contain; /* Ensure media maintains aspect ratio in fullscreen */
 }
+
+/* Add media query for mobile devices */
+@media (max-width: 768px) {
+  .fullscreen .media {
+    width: 100%; /* For mobile, set width to 100% */
+    height: auto; /* Adjust height accordingly */
+    object-fit: contain; /* Maintain aspect ratio */
+  }
+}
