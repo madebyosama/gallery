@@ -58,3 +58,16 @@
     object-fit: contain; /* Maintain aspect ratio */
   }
 }
+
+.search {
+  border-radius: 32px;
+  border: 1px solid #ebedef;
+  outline: none;
+  color: #1e1e1e;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 16px 32px;
+  width: -webkit-fill-available;
+  margin-bottom: 32px;
+}

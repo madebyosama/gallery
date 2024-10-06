@@ -87,19 +87,20 @@ export default function Home() {
   ) : (
     <div>
       <div>
-        <input
-          placeholder='search category'
-          onChange={(e) => {
-            setSelectedCategory(e.target.value);
-          }}
-        ></input>
-        <button
-          onClick={() => {
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
             setCategory(selectedCategory);
           }}
         >
-          Submit
-        </button>
+          <input
+            className={styles.search}
+            placeholder='search category'
+            onChange={(e) => {
+              setSelectedCategory(e.target.value);
+            }}
+          ></input>
+        </form>
       </div>
       <div className={styles.row}>
         {columns.map((column, columnIndex) => (
