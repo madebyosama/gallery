@@ -95,7 +95,7 @@ export default function Home() {
         >
           <input
             className={styles.search}
-            placeholder='search category'
+            placeholder='Search'
             onChange={(e) => {
               setSelectedCategory(e.target.value);
             }}
