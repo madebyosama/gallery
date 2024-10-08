@@ -17,7 +17,7 @@ interface MediaItem {
 export default function Home() {
   const [media, setMedia] = useState<MediaItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [category, setCategory] = useState<String>('posts');
+  const [category, setCategory] = useState<String>('');
   const [selectedCategory, setSelectedCategory] = useState<String>('');
   const [fullscreen, setFullscreen] = useState<string | null>(null); // To track fullscreen state
 
@@ -82,26 +82,28 @@ export default function Home() {
     }
   };
 
-  return loading ? (
-    <div>Loading...</div>
-  ) : (
+  return (
     <div>
-      <div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            setCategory(selectedCategory);
-          }}
-        >
-          <input
-            className={styles.search}
-            placeholder='Search'
-            onChange={(e) => {
-              setSelectedCategory(e.target.value);
+      {category ? (
+        <div></div>
+      ) : (
+        <div className={styles.form}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setCategory(selectedCategory);
             }}
-          ></input>
-        </form>
-      </div>
+          >
+            <input
+              className={styles.search}
+              placeholder='Search'
+              onChange={(e) => {
+                setSelectedCategory(e.target.value);
+              }}
+            ></input>
+          </form>
+        </div>
+      )}
       <div className={styles.row}>
         {columns.map((column, columnIndex) => (
           <div key={columnIndex} className={styles.column}>

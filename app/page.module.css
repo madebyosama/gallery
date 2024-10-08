@@ -59,6 +59,13 @@
   }
 }
 
+.form {
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .search {
   border-radius: 32px;
   border: 1px solid #ebedef;
@@ -70,4 +77,12 @@
   padding: 16px 32px;
   width: -webkit-fill-available;
   margin-bottom: 32px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .search {
+    background-color: #333;
+    border: 1px solid #424242;
+    color: #f5f5f5;
+  }
 }
