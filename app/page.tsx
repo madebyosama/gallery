@@ -18,7 +18,7 @@ export default function Home() {
   const [media, setMedia] = useState<MediaItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [category, setCategory] = useState<String>('');
-  const [selectedCategory, setSelectedCategory] = useState<String>('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [fullscreen, setFullscreen] = useState<string | null>(null); // To track fullscreen state
 
   useEffect(() => {
@@ -94,13 +94,38 @@ export default function Home() {
               setCategory(selectedCategory);
             }}
           >
-            <input
-              className={styles.search}
-              placeholder='Search'
-              onChange={(e) => {
-                setSelectedCategory(e.target.value);
-              }}
-            ></input>
+            <div className={styles.searchContainer}>
+              <input
+                className={styles.search}
+                placeholder='Search'
+                value={selectedCategory}
+                onChange={(e) => {
+                  setSelectedCategory(e.target.value);
+                }}
+              ></input>
+              {selectedCategory ? (
+                <svg
+                  width='16'
+                  height='16'
+                  viewBox='0 0 16 16'
+                  fill='none'
+                  xmlns='http://www.w3.org/2000/svg'
+                  className={styles.clearSearch}
+                  onClick={() => {
+                    setSelectedCategory('');
+                  }}
+                >
+                  <path
+                    d='M14.4848 1.5154L1.51562 14.4837M14.4848 14.4846L1.51562 1.51632'
+                    stroke='var(--icon-color)'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                  ></path>
+                </svg>
+              ) : (
+                <div></div>
+              )}
+            </div>
           </form>
         </div>
       )}
