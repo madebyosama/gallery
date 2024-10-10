@@ -73,8 +73,10 @@
 .clearSearch {
   --icon-color: #4d4d4d;
   position: absolute;
-  right: 4%;
-  top: 11%;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
   fill: red;
   border-radius: 999px;
   padding: 10px;
@@ -103,8 +105,6 @@
   font-size: 16px;
   font-weight: 500;
   padding: 16px 32px;
-  width: -webkit-fill-available;
-  margin-bottom: 32px;
 }
 
 @media (prefers-color-scheme: dark) {
