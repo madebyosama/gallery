@@ -130,46 +130,51 @@ export default function Home() {
           </form>
         </div>
       )}
-      {loading?<Loading/>:<div className={styles.row}>
-        {columns.map((column, columnIndex) => (
-          <div key={columnIndex} className={styles.column}>
-            {column.map((item) => (
-              <div
-                key={item.link}
-                className={`${styles.mediaContainer} ${
-                  fullscreen === item.link ? styles.fullscreen : ''
-                }`}
-                onClick={() => item.type === 'image' && handleImageClick(item)}
-                onDoubleClick={() =>
-                  item.type === 'video' && handleVideoDoubleClick(item)
-                }
-              >
-                {item.type === 'image' ? (
-                  <Image
-                    src={item.link}
-                    alt={item.description || item.title}
-                    width={0}
-                    height={0}
-                    sizes='fill'
-                    unoptimized
-                    className={styles.media}
-                    
-                  />
-                ) : (
-                  <video
-                    src={item.link}
-                    loop
-                    onClick={handleVideoClick}
-                    className={`${styles.media} ${styles.video}`}
-                  >
-                    Your browser does not support the video tag.
-                  </video>
-                )}
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>}
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className={styles.row}>
+          {columns.map((column, columnIndex) => (
+            <div key={columnIndex} className={styles.column}>
+              {column.map((item) => (
+                <div
+                  key={item.link}
+                  className={`${styles.mediaContainer} ${
+                    fullscreen === item.link ? styles.fullscreen : ''
+                  }`}
+                  onClick={() =>
+                    item.type === 'image' && handleImageClick(item)
+                  }
+                  onDoubleClick={() =>
+                    item.type === 'video' && handleVideoDoubleClick(item)
+                  }
+                >
+                  {item.type === 'image' ? (
+                    <Image
+                      src={item.link}
+                      alt={item.description || item.title}
+                      width={0}
+                      height={0}
+                      sizes='fill'
+                      unoptimized
+                      className={styles.media}
+                    />
+                  ) : (
+                    <video
+                      src={item.link}
+                      loop
+                      onClick={handleVideoClick}
+                      className={`${styles.media} ${styles.video}`}
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  )}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
