@@ -1,6 +1,6 @@
 .row {
   display: flex;
-  gap: 16px; /* Adjust gap between columns */
+  gap: 8px; /* Adjust gap between columns */
 }
 
 .column {
@@ -8,7 +8,7 @@
 }
 
 .mediaContainer {
-  margin-bottom: 16px; /* Space between media items in a column */
+  margin-bottom: 8px; /* Space between media items in a column */
   border-radius: 8px;
   overflow: hidden;
   background-color: transparent; /* Optional: background color */
@@ -21,7 +21,6 @@
   display: block;
   width: 100%;
   height: auto; /* Ensure height adjusts to media */
-
 }
 
 .video {
@@ -47,7 +46,7 @@
 .fullscreen .media {
   width: auto;
   height: 100%;
-  object-fit: contain; 
+  object-fit: contain;
 }
 
 /* Add media query for mobile devices */
