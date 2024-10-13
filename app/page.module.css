@@ -13,9 +13,10 @@
   overflow: hidden;
   background-color: transparent; /* Optional: background color */
   position: relative; /* Needed for fullscreen positioning */
-  transition: all 0.3s ease-in-out;
   cursor: pointer;
   user-select: none;
+  -webkit-tap-highlight-color: transparent; /* For WebKit browsers */
+  touch-action: manipulation; /* Prevents double-tap zoom */
 }
 
 .media {
@@ -38,7 +39,9 @@
   width: 100vw;
   height: 100vh;
   z-index: 9999;
-  background-color: rgba(0, 0, 0, 0.9); /* Dark background */
+  background-color: rgba(0, 0, 0, 0.9);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px); /* Dark background */
   display: flex;
   justify-content: center;
   align-items: center;

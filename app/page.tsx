@@ -60,7 +60,8 @@ export default function Home() {
 
   const columns = splitArrayIntoColumns(media, 3);
 
-  const handleImageClick = (item: MediaItem) => {
+  const handleImageClick = (item: MediaItem, e: React.MouseEvent) => {
+    e.preventDefault(); // Prevents default behavior
     setFullscreen(fullscreen === item.link ? null : item.link);
   };
 
@@ -136,9 +137,9 @@ export default function Home() {
                   className={`${styles.mediaContainer} ${
                     fullscreen === item.link ? styles.fullscreen : ''
                   }`}
-                  onClick={() =>
-                    item.type === 'image' && handleImageClick(item)
-                  }
+                  onClick={(e) =>
+                    item.type === 'image' && handleImageClick(item, e)
+                  } // Pass event
                   onDoubleClick={() =>
                     item.type === 'video' && handleVideoDoubleClick(item)
                   }
