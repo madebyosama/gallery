@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import styles from './page.module.css';
 import { useEffect, useState } from 'react';
+import Loading from './components/Loading/Loading';
 
 // Define the interface for the media item
 interface MediaItem {
@@ -129,7 +130,7 @@ export default function Home() {
           </form>
         </div>
       )}
-      <div className={styles.row}>
+      {loading?<Loading/>:<div className={styles.row}>
         {columns.map((column, columnIndex) => (
           <div key={columnIndex} className={styles.column}>
             {column.map((item) => (
@@ -149,8 +150,10 @@ export default function Home() {
                     alt={item.description || item.title}
                     width={0}
                     height={0}
-                    sizes='100vw'
+                    sizes='fill'
+                    unoptimized
                     className={styles.media}
+                    
                   />
                 ) : (
                   <video
@@ -166,7 +169,7 @@ export default function Home() {
             ))}
           </div>
         ))}
-      </div>
+      </div>}
     </div>
   );
 }
