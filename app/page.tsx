@@ -18,16 +18,16 @@ interface MediaItem {
 export default function Home() {
   const [media, setMedia] = useState<MediaItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [category, setCategory] = useState<String>('');
+  const [category, setCategory] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
-  const [fullscreen, setFullscreen] = useState<string | null>(null); // To track fullscreen state
+  const [fullscreen, setFullscreen] = useState<string | null>(null);
+  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     setLoading(true);
     async function fetchData() {
       const response = await fetch(
-        'https://opensheet.elk.sh/1TX-yGqpd254kAR63bI7cKbskSmnuJVcbGuHK0rFp52Q/' +
-          category
+        `https://opensheet.elk.sh/1TX-yGqpd254kAR63bI7cKbskSmnuJVcbGuHK0rFp52Q/${category}`
       );
       const data: MediaItem[] = await response.json();
       setMedia(data.length ? data : media);
@@ -37,22 +37,19 @@ export default function Home() {
     fetchData();
   }, [category]);
 
-  // Listen for the Escape key to exit fullscreen
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setFullscreen(null); // Exit fullscreen on Escape key press
+        setFullscreen(null);
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
-
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
 
-  // Split the media array into three columns
   const splitArrayIntoColumns = (array: MediaItem[], numColumns: number) => {
     const columns: MediaItem[][] = Array.from({ length: numColumns }, () => []);
     array.forEach((item, index) => {
@@ -63,17 +60,14 @@ export default function Home() {
 
   const columns = splitArrayIntoColumns(media, 3);
 
-  // Handle image click for fullscreen toggle
   const handleImageClick = (item: MediaItem) => {
     setFullscreen(fullscreen === item.link ? null : item.link);
   };
 
-  // Handle video double click for fullscreen toggle
   const handleVideoDoubleClick = (item: MediaItem) => {
     setFullscreen(fullscreen === item.link ? null : item.link);
   };
 
-  // Handle video play/pause
   const handleVideoClick = (e: React.MouseEvent<HTMLVideoElement>) => {
     const video = e.currentTarget;
     if (video.paused) {
@@ -81,6 +75,10 @@ export default function Home() {
     } else {
       video.pause();
     }
+  };
+
+  const handleImageLoad = (link: string) => {
+    setLoadedImages((prev) => new Set(prev).add(link));
   };
 
   return (
@@ -103,8 +101,8 @@ export default function Home() {
                 onChange={(e) => {
                   setSelectedCategory(e.target.value);
                 }}
-              ></input>
-              {selectedCategory ? (
+              />
+              {selectedCategory && (
                 <svg
                   width='16'
                   height='16'
@@ -112,19 +110,15 @@ export default function Home() {
                   fill='none'
                   xmlns='http://www.w3.org/2000/svg'
                   className={styles.clearSearch}
-                  onClick={() => {
-                    setSelectedCategory('');
-                  }}
+                  onClick={() => setSelectedCategory('')}
                 >
                   <path
                     d='M14.4848 1.5154L1.51562 14.4837M14.4848 14.4846L1.51562 1.51632'
                     stroke='var(--icon-color)'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                  ></path>
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  />
                 </svg>
-              ) : (
-                <div></div>
               )}
             </div>
           </form>
@@ -153,11 +147,13 @@ export default function Home() {
                     <Image
                       src={item.link}
                       alt={item.description || item.title}
-                      width={0}
-                      height={0}
-                      sizes='fill'
+                      width={500} // Set a specific width
+                      height={500} // Set a specific height
                       unoptimized
-                      className={styles.media}
+                      className={`${styles.media} fade-in ${
+                        loadedImages.has(item.link) ? 'visible' : ''
+                      }`}
+                      onLoad={() => handleImageLoad(item.link)}
                     />
                   ) : (
                     <video

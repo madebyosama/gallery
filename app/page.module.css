@@ -1,3 +1,13 @@
+.selected {
+  outline: 4px solid blue; /* Change to desired color and thickness */
+  background-color: rgba(
+    173,
+    216,
+    230,
+    0.3
+  ); /* Optional: light blue background */
+}
+
 .row {
   display: flex;
   gap: 8px; /* Adjust gap between columns */
@@ -9,12 +19,13 @@
 
 .mediaContainer {
   margin-bottom: 8px; /* Space between media items in a column */
-  border-radius: 8px;
+  /* border-radius: 8px; */
   overflow: hidden;
   background-color: transparent; /* Optional: background color */
   position: relative; /* Needed for fullscreen positioning */
   transition: all 0.3s ease-in-out;
   cursor: pointer;
+  user-select: none;
 }
 
 .media {

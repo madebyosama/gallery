@@ -7,3 +7,12 @@ body {
     background-color: #121212;
   }
 }
+
+.fade-in {
+  opacity: 0; /* Start as invisible */
+  transition: opacity 0.5s ease-in; /* Transition effect */
+}
+
+.fade-in.visible {
+  opacity: 1; /* Fully visible when the class is added */
+}
