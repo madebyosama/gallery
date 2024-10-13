@@ -11,7 +11,7 @@
   margin-bottom: 16px; /* Space between media items in a column */
   border-radius: 8px;
   overflow: hidden;
-  background-color: #f0f0f0; /* Optional: background color */
+  background-color: transparent; /* Optional: background color */
   position: relative; /* Needed for fullscreen positioning */
   transition: all 0.3s ease-in-out;
   cursor: pointer;
@@ -21,7 +21,7 @@
   display: block;
   width: 100%;
   height: auto; /* Ensure height adjusts to media */
-  object-fit: cover; /* Ensure the media covers the container */
+
 }
 
 .video {
@@ -47,7 +47,7 @@
 .fullscreen .media {
   width: auto;
   height: 100%;
-  object-fit: contain; /* Ensure media maintains aspect ratio in fullscreen */
+  object-fit: contain; 
 }
 
 /* Add media query for mobile devices */
