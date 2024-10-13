@@ -30,7 +30,7 @@ export default function Home() {
         `https://opensheet.elk.sh/1TX-yGqpd254kAR63bI7cKbskSmnuJVcbGuHK0rFp52Q/${category}`
       );
       const data: MediaItem[] = await response.json();
-      setMedia(data.length ? data : media);
+      setMedia((prevMedia) => (data.length ? data : prevMedia));
       setLoading(false);
     }
 

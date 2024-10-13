@@ -16,3 +16,7 @@ body {
 .fade-in.visible {
   opacity: 1; /* Fully visible when the class is added */
 }
+
+::-webkit-scrollbar {
+  display: none;
+}

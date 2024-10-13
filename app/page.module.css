@@ -1,13 +1,3 @@
-.selected {
-  outline: 4px solid blue; /* Change to desired color and thickness */
-  background-color: rgba(
-    173,
-    216,
-    230,
-    0.3
-  ); /* Optional: light blue background */
-}
-
 .row {
   display: flex;
   gap: 8px; /* Adjust gap between columns */
@@ -70,7 +60,7 @@
 }
 
 .form {
-  height: 100dvh;
+  height: 93vh;
   display: flex;
   justify-content: center;
   align-items: center;
