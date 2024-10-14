@@ -145,6 +145,7 @@ export default function Home() {
                     <Image
                       src={item.link}
                       alt={'image'}
+                      unoptimized
                       width={500} // Set a specific width
                       height={500} // Set a specific height
                       className={`${styles.media} fade-in ${
