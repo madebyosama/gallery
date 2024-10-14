@@ -95,6 +95,7 @@ export default function Home() {
                 className={styles.search}
                 placeholder='Search'
                 value={selectedCategory}
+                autoFocus
                 onChange={(e) => {
                   setSelectedCategory(e.target.value);
                 }}
@@ -146,7 +147,6 @@ export default function Home() {
                       alt={'image'}
                       width={500} // Set a specific width
                       height={500} // Set a specific height
-                      unoptimized
                       className={`${styles.media} fade-in ${
                         loadedImages.has(item.link) ? 'visible' : ''
                       }`}

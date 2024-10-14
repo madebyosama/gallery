@@ -100,8 +100,10 @@
 }
 
 .search {
+  background-color: #f4f4f4;
   border-radius: 32px;
-  border: 1px solid #ebedef;
+  /* border: 1px solid #ebedef; */
+  border: none;
   outline: none;
   color: #1e1e1e;
   font-family: inherit;
@@ -112,8 +114,8 @@
 
 @media (prefers-color-scheme: dark) {
   .search {
-    background-color: #333;
-    border: 1px solid #424242;
-    color: #f5f5f5;
+    background-color: #2f2f2f;
+    /* border: 1px solid #424242; */
+    color: #e4e4e4;
   }
 }
