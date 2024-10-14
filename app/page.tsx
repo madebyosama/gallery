@@ -7,12 +7,8 @@ import Loading from './components/Loading/Loading';
 
 // Define the interface for the media item
 interface MediaItem {
-  title: string;
-  description: string;
   type: 'image' | 'video';
   link: string;
-  source: string;
-  tags: string;
 }
 
 export default function Home() {
@@ -147,7 +143,7 @@ export default function Home() {
                   {item.type === 'image' ? (
                     <Image
                       src={item.link}
-                      alt={item.description || item.title}
+                      alt={'image'}
                       width={500} // Set a specific width
                       height={500} // Set a specific height
                       unoptimized
