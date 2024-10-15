@@ -61,7 +61,7 @@ export default function Home() {
     : splitArrayIntoColumns(media, 3);
 
   const handleImageClick = (item: MediaItem, e: React.MouseEvent) => {
-    e.preventDefault(); // Prevents default behavior
+    e.preventDefault();
     setFullscreen(fullscreen === item.link ? null : item.link);
   };
 
