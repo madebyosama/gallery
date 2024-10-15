@@ -54,7 +54,11 @@ export default function Home() {
     return columns;
   };
 
-  const columns = splitArrayIntoColumns(media, 3);
+  const isMobile = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  const columns = isMobile()
+    ? splitArrayIntoColumns(media, 1)
+    : splitArrayIntoColumns(media, 3);
 
   const handleImageClick = (item: MediaItem, e: React.MouseEvent) => {
     e.preventDefault(); // Prevents default behavior
