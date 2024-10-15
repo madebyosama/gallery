@@ -5,7 +5,6 @@ import styles from './page.module.css';
 import { useEffect, useState } from 'react';
 import Loading from './components/Loading/Loading';
 
-// Define the interface for the media item
 interface MediaItem {
   type: 'image' | 'video';
   link: string;
