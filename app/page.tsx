@@ -11,12 +11,20 @@ interface MediaItem {
 }
 
 export default function Home() {
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const [media, setMedia] = useState<MediaItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [category, setCategory] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [fullscreen, setFullscreen] = useState<string | null>(null);
   const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    // Check if we're in a browser environment
+    if (typeof window !== 'undefined') {
+      setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+    }
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -53,9 +61,7 @@ export default function Home() {
     return columns;
   };
 
-  const isMobile = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-  const columns = isMobile()
+  const columns = isMobile
     ? splitArrayIntoColumns(media, 1)
     : splitArrayIntoColumns(media, 3);
 
