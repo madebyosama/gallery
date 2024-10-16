@@ -62,6 +62,15 @@
   }
 }
 
+/* Ensure video fills the mobile screen properly */
+@media (max-width: 768px) {
+  .fullscreen .video {
+    width: 100%; /* Adjust width in fullscreen mode */
+    height: 100vh; /* Ensure it covers the viewport height */
+    object-fit: cover; /* Maintain aspect ratio in fullscreen */
+  }
+}
+
 .form {
   height: 93vh;
   display: flex;
