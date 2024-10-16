@@ -20,7 +20,6 @@ export default function Home() {
   const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    // Check if we're in a browser environment
     if (typeof window !== 'undefined') {
       setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
     }
@@ -145,7 +144,7 @@ export default function Home() {
                   }`}
                   onClick={(e) =>
                     item.type === 'image' && handleImageClick(item, e)
-                  } // Pass event
+                  }
                   onDoubleClick={() =>
                     item.type === 'video' && handleVideoDoubleClick(item)
                   }
@@ -155,8 +154,8 @@ export default function Home() {
                       src={item.link}
                       alt={'image'}
                       unoptimized
-                      width={500} // Set a specific width
-                      height={500} // Set a specific height
+                      width={500}
+                      height={500}
                       className={`${styles.media} fade-in ${
                         loadedImages.has(item.link) ? 'visible' : ''
                       }`}
