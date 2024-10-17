@@ -1,5 +1,7 @@
 body {
   background-color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -8,13 +10,19 @@ body {
   }
 }
 
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 .fade-in {
-  opacity: 0; /* Start as invisible */
-  transition: opacity 0.5s ease-in; /* Transition effect */
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
 }
 
 .fade-in.visible {
-  opacity: 1; /* Fully visible when the class is added */
+  opacity: 1;
 }
 
 ::-webkit-scrollbar {
