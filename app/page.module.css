@@ -53,21 +53,19 @@
   object-fit: contain;
 }
 
-/* Add media query for mobile devices */
 @media (max-width: 768px) {
   .fullscreen .media {
-    width: 100%; /* For mobile, set width to 100% */
-    height: auto; /* Adjust height accordingly */
-    object-fit: contain; /* Maintain aspect ratio */
+    width: 100%;
+    height: auto;
+    object-fit: contain;
   }
 }
 
-/* Ensure video fills the mobile screen properly */
 @media (max-width: 768px) {
   .fullscreen .video {
-    width: 100%; /* Adjust width in fullscreen mode */
-    height: 100vh; /* Ensure it covers the viewport height */
-    object-fit: cover; /* Maintain aspect ratio in fullscreen */
+    width: 100%;
+    height: auto;
+    object-fit: contain;
   }
 }
 
