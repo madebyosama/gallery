@@ -1,0 +1,64 @@
+:root {
+  --body-color: #fdfdfd;
+  --body-color-dark: #212121;
+
+  --primary-color: #0022dd;
+  --secondary-color: #ffdd00;
+
+  --text-light: #777777;
+  --text-light-dark: #aaaaaa;
+
+  --text-medium: #6b7280;
+  --text-medium-dark: #aaaaaa;
+
+  --text-dark: #374151;
+  --text-dark-dark: #ffffff;
+
+  --link: #0022dd;
+  --link-hover-color: #1915aa;
+
+  --background-color: #ffffff;
+  --background-color-dark: #252525;
+
+  --foreground-color: #252525;
+  --foreground-color-dark: #ffffff;
+
+  --light-grey: #282828;
+
+  --star-color: #0022dd;
+  --star-color-dark: #ffdd00;
+
+  --back-to-top: #e8e8e8;
+  --back-to-top-dark: #292929;
+
+  --back-to-top-hover: #f7f7f7;
+  --back-to-top-hover-dark: #313131;
+
+  --scrollbar-thumb: #dddddd;
+  --scrollbar-thumb-dark: #292929;
+
+  --border: 1px solid #ececec;
+  --border-dark: 1px solid #424242;
+}
+
+body {
+  background-color: var(--body-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --body-color: var(--body-color-dark);
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

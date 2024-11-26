@@ -1,0 +1,146 @@
+.row {
+  display: flex;
+  gap: 8px; /* Adjust gap between columns */
+}
+
+.column {
+  flex: 1; /* Each column takes up equal space */
+}
+
+.mediaContainer {
+  margin-bottom: 8px; /* Space between media items in a column */
+  /* border-radius: 8px; */
+  overflow: hidden;
+  background-color: transparent; /* Optional: background color */
+  position: relative; /* Needed for fullscreen positioning */
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent; /* For WebKit browsers */
+  touch-action: manipulation; /* Prevents double-tap zoom */
+}
+
+.media {
+  display: block;
+  width: 100%;
+  height: 100%; /* Ensure height adjusts to media */
+}
+
+.video {
+  height: auto; /* Ensure video height adjusts to container */
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+}
+
+.fade-in.visible {
+  opacity: 1;
+}
+
+/* Fullscreen styles */
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.9);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px); /* Dark background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fullscreen .media {
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .fullscreen .media {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 768px) {
+  .fullscreen .video {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+.form {
+  height: 93vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchContainer {
+  position: relative;
+}
+
+.clearSearch {
+  --icon-color: #4d4d4d;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  fill: red;
+  border-radius: 999px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.clearSearch:hover {
+  background-color: #eee;
+}
+
+@media (prefers-color-scheme: dark) {
+  .clearSearch {
+    --icon-color: #888888;
+  }
+  .clearSearch:hover {
+    background-color: #444;
+  }
+}
+
+.search {
+  background-color: #f4f4f4;
+  border-radius: 32px;
+  /* border: 1px solid #ebedef; */
+  border: none;
+  outline: none;
+  color: #1e1e1e;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 16px 32px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .search {
+    background-color: #2f2f2f;
+    /* border: 1px solid #424242; */
+    color: #e4e4e4;
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+}
+
+.fade-in.visible {
+  opacity: 1;
+}
