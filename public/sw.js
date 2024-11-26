@@ -1,6 +1,6 @@
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open('notes-cache-v1').then((cache) => {
+    caches.open('gallery-cache-v1').then((cache) => {
       return cache.addAll([
         '/',
         '/site.webmanifest',
@@ -36,7 +36,7 @@ self.addEventListener('fetch', (event) => {
         // Clone the response because it can only be used once
         const responseToCache = response.clone();
 
-        caches.open('notes-cache-v1').then((cache) => {
+        caches.open('gallery-cache-v1').then((cache) => {
           cache.put(event.request, responseToCache);
         });
 
