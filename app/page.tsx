@@ -4,21 +4,21 @@ import Image from 'next/image';
 import styles from './page.module.css';
 import { useEffect, useState } from 'react';
 import Loading from './components/Loading/Loading';
+import Search from './components/Search/Search';
 
 interface MediaItem {
-  type: 'image' | 'video';
+  type: 'image' | 'video' | 'gallery';
   link: string;
 }
 
-export default function Saved() {
+export default function Gallery() {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [media, setMedia] = useState<MediaItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [fullscreen, setFullscreen] = useState<string | null>(null);
   const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
   const [showControls, setShowControls] = useState<Set<string>>(new Set());
-  const [searchItem, setSearchItem] = useState<string>('');
-  const [searchValue, setSearchValue] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string | ''>('');
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -31,7 +31,7 @@ export default function Saved() {
 
     async function fetchData() {
       const response = await fetch(
-        `https://opensheet.elk.sh/1-0u9tgXpiRbZCivkedxKQ-DsRiQ6FM1YGjInU_S4nrE/${searchItem}`
+        `https://opensheet.elk.sh/1-0u9tgXpiRbZCivkedxKQ-DsRiQ6FM1YGjInU_S4nrE/${searchValue}`
       );
 
       const data: MediaItem[] = await response.json();
@@ -39,8 +39,8 @@ export default function Saved() {
       setLoading(false);
     }
 
-    fetchData();
-  }, [searchItem]);
+    if (searchValue) fetchData();
+  }, [searchValue]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -109,25 +109,11 @@ export default function Saved() {
     setLoadedImages((prev) => new Set(prev).add(link));
   };
 
-  if (!searchItem) {
-    return (
-      <form
-        className={styles.form}
-        onSubmit={(e) => {
-          e.preventDefault();
-          setSearchItem(searchValue);
-        }}
-      >
-        <input
-          className={styles.search}
-          placeholder='Search'
-          onChange={(e) => {
-            setSearchValue(e.target.value);
-          }}
-        />
-      </form>
-    );
-  }
+  const handleSearch = (query: string) => {
+    setSearchValue(query);
+  };
+
+  if (!searchValue) return <Search onSubmit={handleSearch} />;
 
   return (
     <div>
