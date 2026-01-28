@@ -144,3 +144,12 @@
     color: #e4e4e4;
   }
 }
+
+.title {
+  background: black;
+  color: white;
+  position: absolute;
+  padding: 4px 8px;
+  top: 4px;
+  left: 4px;
+}

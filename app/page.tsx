@@ -1,119 +1,121 @@
-'use client';
+'use client'
 
-import Image from 'next/image';
-import styles from './page.module.css';
-import { useEffect, useState } from 'react';
-import Loading from './components/Loading/Loading';
-import Search from './components/Search/Search';
+import Image from 'next/image'
+import styles from './page.module.css'
+import { useEffect, useState } from 'react'
+import Loading from './components/Loading/Loading'
+import Search from './components/Search/Search'
 
 interface MediaItem {
-  type: 'image' | 'video' | 'gallery';
-  link: string;
+  type: 'image' | 'video' | 'gallery'
+  link: string
+  title: string
 }
 
 export default function Gallery() {
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-  const [media, setMedia] = useState<MediaItem[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [fullscreen, setFullscreen] = useState<string | null>(null);
-  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
-  const [showControls, setShowControls] = useState<Set<string>>(new Set());
-  const [searchValue, setSearchValue] = useState<string | ''>('');
+  const [isMobile, setIsMobile] = useState<boolean>(false)
+  const [media, setMedia] = useState<MediaItem[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+  const [fullscreen, setFullscreen] = useState<string | null>(null)
+  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set())
+  const [showControls, setShowControls] = useState<Set<string>>(new Set())
+  const [searchValue, setSearchValue] = useState<string | ''>('')
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+      setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
-    setLoading(true);
+    setLoading(true)
 
     async function fetchData() {
       const response = await fetch(
         `https://opensheet.elk.sh/1-0u9tgXpiRbZCivkedxKQ-DsRiQ6FM1YGjInU_S4nrE/${searchValue}`
-      );
+      )
 
-      const data: MediaItem[] = await response.json();
-      setMedia((prevMedia) => (data.length ? data : prevMedia));
-      setLoading(false);
+      const data: MediaItem[] = await response.json()
+      const shuffledData = [...data].sort(() => Math.random() * 2 - 1)
+      setMedia((prevMedia) => (shuffledData.length ? shuffledData : prevMedia))
+      setLoading(false)
     }
 
-    if (searchValue) fetchData();
-  }, [searchValue]);
+    if (searchValue) fetchData()
+  }, [searchValue])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setFullscreen(null);
+        setFullscreen(null)
       }
-    };
+    }
 
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown)
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
 
   const splitArrayIntoColumns = (array: MediaItem[], numColumns: number) => {
-    const columns: MediaItem[][] = Array.from({ length: numColumns }, () => []);
+    const columns: MediaItem[][] = Array.from({ length: numColumns }, () => [])
 
     array.forEach((item, index) => {
-      columns[index % numColumns].push(item);
-    });
+      columns[index % numColumns].push(item)
+    })
 
-    return columns;
-  };
+    return columns
+  }
 
   const columns = isMobile
     ? splitArrayIntoColumns(media, 1)
-    : splitArrayIntoColumns(media, 3);
+    : splitArrayIntoColumns(media, 3)
 
   const handleImageClick = (item: MediaItem, e: React.MouseEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    setFullscreen(fullscreen === item.link ? null : item.link);
-  };
+    setFullscreen(fullscreen === item.link ? null : item.link)
+  }
 
   const handleVideoDoubleClick = (item: MediaItem) => {
-    setFullscreen(fullscreen === item.link ? null : item.link);
-  };
+    setFullscreen(fullscreen === item.link ? null : item.link)
+  }
 
   const handleVideoClick = (
     e: React.MouseEvent<HTMLVideoElement>,
     link: string
   ) => {
-    const video = e.currentTarget;
+    const video = e.currentTarget
 
-    e.preventDefault();
+    e.preventDefault()
 
     // Toggle controls
     setShowControls((prev) => {
-      const newControls = new Set(prev);
+      const newControls = new Set(prev)
       if (newControls.has(link)) {
-        newControls.delete(link);
+        newControls.delete(link)
       } else {
-        newControls.add(link);
+        newControls.add(link)
       }
-      return newControls;
-    });
+      return newControls
+    })
     if (video.paused) {
-      video.play();
+      video.play()
     } else {
-      video.pause();
+      video.pause()
     }
-  };
+  }
 
   const handleImageLoad = (link: string) => {
-    setLoadedImages((prev) => new Set(prev).add(link));
-  };
+    setLoadedImages((prev) => new Set(prev).add(link))
+  }
 
   const handleSearch = (query: string) => {
-    setSearchValue(query);
-  };
+    setSearchValue(query)
+  }
 
-  if (!searchValue) return <Search onSubmit={handleSearch} />;
+  if (!searchValue) return <Search onSubmit={handleSearch} />
 
   return (
     <div>
@@ -137,17 +139,20 @@ export default function Gallery() {
                   }
                 >
                   {item.type === 'image' ? (
-                    <Image
-                      src={item.link}
-                      alt={'image'}
-                      unoptimized
-                      width={500}
-                      height={500}
-                      className={`${styles.media} fade-in ${
-                        loadedImages.has(item.link) ? 'visible' : ''
-                      }`}
-                      onLoad={() => handleImageLoad(item.link)}
-                    />
+                    <span>
+                      <p className={styles.title}>{item.title}</p>
+                      <Image
+                        src={item.link}
+                        alt={'image'}
+                        unoptimized
+                        width={500}
+                        height={500}
+                        className={`${styles.media} fade-in ${
+                          loadedImages.has(item.link) ? 'visible' : ''
+                        }`}
+                        onLoad={() => handleImageLoad(item.link)}
+                      />
+                    </span>
                   ) : (
                     <video
                       src={item.link}
@@ -166,5 +171,5 @@ export default function Gallery() {
         </div>
       )}
     </div>
-  );
+  )
 }
